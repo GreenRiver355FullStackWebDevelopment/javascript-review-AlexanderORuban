@@ -23,6 +23,9 @@ const reviews = [
 /////////////////////////////////////////////////////////////////////
 
 //Your Code Below Here////
+// Selecting the form from the DOM
+const form = document.querySelector("form");
+
 const renderReview = (review) => {
   // Creating an individual review container
   const reviewContainer = document.createElement("div");
@@ -43,7 +46,7 @@ const renderReview = (review) => {
 
   // Creating and adding the star rating to the infoDiv container
   const starRating = document.createElement("p");
-  starRating.textContent = review.starRating;
+  starRating.textContent = review.star;
   infoDiv.appendChild(starRating);
 
   // Creating and adding the review to the infoDiv container
@@ -62,6 +65,37 @@ const renderReview = (review) => {
 const renderAllReviews = () => {
   reviews.forEach(renderReview);
 }
+
+function handleForm(event) {
+  // Preventing default behavior
+  event.preventDefault();
+
+  // Saving all fields in variables
+  const username = document.querySelector("#username").value;
+  const image = document.querySelector("#image").value;
+  const star = document.querySelector("#star").value;
+  const review = document.querySelector("#review").value;
+
+  // Creating new review object
+  const reviewToAdd = {
+    username,
+    image,
+    star,
+    review
+  };
+
+  // Adding the review object to the array of reviews
+  reviews.push(reviewToAdd);
+
+  // Rendering the review to the page
+  renderReview(reviewToAdd);
+
+  // Resetting all form fields after submission
+  form.reset();
+}
+
+// Adding an event listener for form submission
+form.addEventListener("submit", handleForm);
 
 // Calling the render function
 renderAllReviews();
