@@ -23,8 +23,21 @@ const reviews = [
 /////////////////////////////////////////////////////////////////////
 
 //Your Code Below Here////
+import { calculateStarAverage } from "./logic.js";
+
 // Selecting the form from the DOM
 const form = document.querySelector("form");
+
+const calculateAverageRating = (reviews) => {
+  // Calculate average of ratings from reviews
+  const averageRating = calculateStarAverage(reviews);
+
+  // Select the .starRating element
+  const starRating = document.querySelector(".starRating");
+
+  // Add the rating to the element
+  starRating.textContent = `Star Rating: ${averageRating}`;
+}
 
 const renderReview = (review) => {
   // Creating an individual review container
@@ -64,6 +77,8 @@ const renderReview = (review) => {
 // Rendering all reviews using the renderReview function
 const renderAllReviews = () => {
   reviews.forEach(renderReview);
+  // Display the average star rating before adding additional reviews
+  calculateAverageRating(reviews)
 }
 
 function handleForm(event) {
@@ -90,6 +105,9 @@ function handleForm(event) {
   // Rendering the review to the page
   renderReview(reviewToAdd);
 
+  // Recalculate the average star rating after adding the new review
+  calculateAverageRating(reviews)
+;
   // Resetting all form fields after submission
   form.reset();
 }
